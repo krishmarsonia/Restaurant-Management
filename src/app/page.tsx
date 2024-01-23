@@ -1,10 +1,21 @@
+"use client"
 import Image from 'next/image'
 import styles from './page.module.css'
+import { useContext } from 'react'
+import OrderContext from '@/context/orderContext/orderContext'
+import { Types } from 'mongoose'
 
 export default function Home() {
+  const {orderList, setTable} = useContext(OrderContext)
+  setTable(new Types.ObjectId());
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
+      {orderList.map((or) => {
+        return or.order.map((o) => {
+          return <h1>{o.foodName}</h1>
+        })
+      })}
+      {/* <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
           <code className={styles.code}>src/app/page.tsx</code>
@@ -89,7 +100,7 @@ export default function Home() {
             Instantly deploy your Next.js site to a shareable URL with Vercel.
           </p>
         </a>
-      </div>
+      </div> */}
     </main>
   )
 }
